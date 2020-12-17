@@ -15,18 +15,15 @@
         <h1>Купить товар</h1>
         <p>${info}</p>
         <form action="makeDeal" method="POST">
-            <h3>Шаг 1: Выберите товар</h3>
+            <h2>
+                Покупатель: ${customer.firstname} ${customer.lastname}
+                <input type="hidden" name="customerId" value="${customer.id}">
+            </h2>
+            <h3>Выберите товар</h3>
             <select name="productId">
                 <option value="">Выберите товар</option>
                 <c:forEach var="product" items="${listProducts}" varStatus="status">
                     <option value="${product.id}">${product.name} ${product.price}</option>
-                </c:forEach>
-            </select>
-            <h3>Шаг 2: Выберите покупателя</h3>
-            <select name="customerId">
-                <option value="">Выберите покупателя</option>
-                <c:forEach var="customer" items="${listCustomers}" varStatus="status">
-                    <option value="${customer.id}">${customer.firstname} ${customer.lastname}</option>
                 </c:forEach>
             </select>
             <p>

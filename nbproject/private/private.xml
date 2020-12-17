@@ -4,10 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Alice/Documents/NetBeansProjects/JKTVR19WebShop/web/WEB-INF/listProducts.jsp</file>
+            <file>file:/C:/Users/Alice/Documents/NetBeansProjects/JKTVR19WebShop/src/java/servlets/UserServlet.java</file>
+            <file>file:/C:/Users/Alice/Documents/NetBeansProjects/JKTVR19WebShop/src/java/servlets/LoginServlet.java</file>
+            <file>file:/C:/Users/Alice/Documents/NetBeansProjects/JKTVR19WebShop/src/java/servlets/ManagerServlet.java</file>
             <file>file:/C:/Users/Alice/Documents/NetBeansProjects/JKTVR19WebShop/web/WEB-INF/editCustomerForm.jsp</file>
+            <file>file:/C:/Users/Alice/Documents/NetBeansProjects/JKTVR19WebShop/web/WEB-INF/makeDealForm.jsp</file>
             <file>file:/C:/Users/Alice/Documents/NetBeansProjects/JKTVR19WebShop/web/index.jsp</file>
-            <file>file:/C:/Users/Alice/Documents/NetBeansProjects/JKTVR19WebShop/web/WEB-INF/listCustomers.jsp</file>
-            <file>file:/C:/Users/Alice/Documents/NetBeansProjects/JKTVR19WebShop/src/java/servlets/MyServlet.java</file>
         </group>
     </open-files>
 </project-private>

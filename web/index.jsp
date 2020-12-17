@@ -18,10 +18,10 @@
             <a href="loginForm">Войти в систему</a>
         </p>
         <p>
-            <a href="logout">Выйти из системы</a>
+            <a href="registrationForm">Зарегистрироваться</a>
         </p>
         <p>
-            <a href="registrationForm">Добавить покупателя</a>
+            <a href="logout">Выйти из системы</a>
         </p>
         <p>
             <a href="listCustomers">Список покупателей</a>

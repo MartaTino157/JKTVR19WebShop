@@ -77,15 +77,15 @@ public class UserServlet extends HttpServlet {
             case "/makeDealForm":
                 listProducts = productFacade.findAll();
                 request.setAttribute("listProducts", listProducts);
-                List<Customer> listCustomers = customerFacade.findAll();
-                request.setAttribute("listCustomers", listCustomers);
+                Customer customer = customerFacade.find(authUser.getCustomer().getId());
+                request.setAttribute("customer", customer);
                 request.getRequestDispatcher("/WEB-INF/makeDealForm.jsp").forward(request, response);
                 break;
             case "/makeDeal":
                 String productId = request.getParameter("productId");
                 Product product = productFacade.find(Long.parseLong(productId));
                 String customerId = request.getParameter("customerId");
-                Customer customer = customerFacade.find(Long.parseLong(customerId));
+                customer = customerFacade.find(Long.parseLong(customerId));
                 double residual;
                 residual = customer.getBalance() - product.getPrice();
                 if(residual <0){

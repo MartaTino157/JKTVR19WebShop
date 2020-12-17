@@ -82,7 +82,13 @@ public class LoginServlet extends HttpServlet {
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
                 break;
             case "/registrationForm":
-                request.getRequestDispatcher("/WEB-INF/addCustomerForm.jsp").forward(request, response);
+                httpSession = request.getSession(false);
+                User authUser = (User) httpSession.getAttribute("user");
+                if(authUser != null){
+                    request.setAttribute("info", "Пожалуйста, выйдите из текущего аккаунта");
+                    request.getRequestDispatcher("/index.jsp").forward(request, response);
+                }
+                request.getRequestDispatcher("/WEB-INF/registrationForm.jsp").forward(request, response);
                 break;
             case "/registration":
                 String firstname = request.getParameter("firstname");
@@ -107,7 +113,7 @@ public class LoginServlet extends HttpServlet {
                     request.setAttribute("balance", strBalance);
                     request.setAttribute("login", login);
                     request.setAttribute("info", "Заполните все поля");
-                    request.getRequestDispatcher("/WEB-INF/addCustomerForm.jsp").forward(request, response);
+                    request.getRequestDispatcher("/WEB-INF/registrationForm.jsp").forward(request, response);
                     break;
                 } 
                 double balance = Double.parseDouble(strBalance);
