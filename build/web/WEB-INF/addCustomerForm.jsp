@@ -12,13 +12,17 @@
         <title>Добавление покупателя</title>
     </head>
     <body>
-        <h1>Новый покупатель</h1>
+        <h2>Новый покупатель</h2>
         <p>${info}</p>
-        <form action="createCustomer" method="POST">
+        <h3>Шаг 1: Ввод личных данных</h3>
+        <form action="registration" method="POST">
             Имя: <input type="text" name="firstname" value="${firstname}"><br>
             Фамилия: <input type="text" name="lastname" value="${lastname}"><br>
             Номер телефона: <input type="text" name="phone" value="${phone}"><br>
             Баланс: <input type="text" name="balance" value="${strBalance}"><br>
+        <h3>Шаг 2: Регистрация пользователя</h3>
+            Логин: <input type="text" name="login" value="${login}"><br>
+            Пароль: <input type="text" name="password" value="${password}"><br><br>
             <input type="submit" name="submit" value="Добавить покупателя"><br>
         </form>
         <p>

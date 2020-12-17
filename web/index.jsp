@@ -15,7 +15,13 @@
         <h1>Привутствуем Вас в нашем онлайн-магазине!</h1>
         <p>${info}</p>
         <p>
-            <a href="addCustomerForm">Добавить покупателя</a>
+            <a href="loginForm">Войти в систему</a>
+        </p>
+        <p>
+            <a href="logout">Выйти из системы</a>
+        </p>
+        <p>
+            <a href="registrationForm">Добавить покупателя</a>
         </p>
         <p>
             <a href="listCustomers">Список покупателей</a>
