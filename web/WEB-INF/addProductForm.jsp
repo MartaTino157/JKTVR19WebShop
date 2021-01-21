@@ -1,27 +1,25 @@
-<%-- 
-    Document   : page
-    Created on : 10.12.2020, 11:22:34
-    Author     : Alice
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Добавление товара</title>
-    </head>
-    <body>
-        <h1>Добавить товар</h1>
-        <p>${info}</p>
+<p class="text-primary">${info}</p>
+    <div class="card border-secondary mb-3" style="max-width: 30rem;">
+      <div class="card-body">
+        <h4 class="card-title">Добавить товар</h4>
         <form action="createProduct" method="POST">
-            Наименование товара: <input type="text" name="name" value="${name}"><br>
-            Страна производства: <input type="text" name="country" value="${country}"><br>
-            Стоимость: <input type="text" name="price" value="${strPrice}"><br>
-            <input type="submit" name="submit" value="Добавить товар"><br>
+            <div class="form-group">
+                <label for="productName">Наименование товара</label>
+                <input type="text" class="form-control" id="productName" name="name" value="${name}" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+                <label for="productCountry">Страна производства</label>
+                <input type="text" class="form-control" id="productCountry" name="country" value="${country}" placeholder="Enter country">
+            </div>
+            <div class="form-group">
+                <label for="productPrice">Стоимость</label>
+                <input type="text" class="form-control" id="productPrice" name="price" value="${strPrice}" placeholder="Enter price">
+            </div>
+            <button type="submit" name="submit" class="btn btn-primary">Добавить товар</button> 
+            <a href="index.jsp" type="button" class="btn btn-secondary">Главная</a>
         </form>
-        <p>
-            <a href="index.jsp">Главная</a>
-        </p>
-    </body>
-</html>
+      </div>
+    </div>
+    

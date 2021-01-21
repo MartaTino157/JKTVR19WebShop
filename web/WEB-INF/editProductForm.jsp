@@ -1,28 +1,27 @@
-<%-- 
-    Document   : editProductForm
-    Created on : 13.12.2020, 16:46:42
-    Author     : Alice
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Изменение товара</title>
-    </head>
-    <body>
-        <h1>Изменить данные товара</h1>
-        <p>${info}</p>
+<p class="text-primary">${info}</p>
+<div class="card border-danger mb-3" style="max-width: 25rem;">
+  <div class="card-header">Данные товара</div> 
+    <div class="card-body">
+      <h4 class="card-title">Изменить информацию</h4>
         <form action="editProduct" method="POST">
-            <input type="hidden" name="productId" value="${product.id}">
-            Наименование товара: <input type="text" name="name" value="${product.name}"><br>
-            Страна производства: <input type="text" name="country" value="${product.country}"><br>
-            Стоимость: <input type="text" name="price" value="${product.price}"><br>
-            <input type="submit" name="submit" value="Править"><br>
-        </form>
-        <p>
-            <a href="index.jsp">Главная</a>
-        </p>
-    </body>
-</html>
+          <input type="hidden" name="productId" value="${product.id}">
+          <div class="form-group">
+            <label>Наименование товара</label>
+            <input type="text" class="form-control" name="name" value="${product.name}">
+          </div>
+          <div class="form-group">
+            <label>Страна производства</label>
+            <input type="text" class="form-control" name="country" value="${product.country}">
+          </div>
+          <div class="form-group">
+            <label>Стоимость</label>
+            <input type="text" class="form-control" name="price" value="${product.price}">
+          </div>
+          <button type="submit" name="submit" class="btn btn-success">Править</button> 
+          <a href="listProducts" type="button" class="btn btn-secondary">К списоку товаров</a>
+        <!--<a href="index.jsp" type="button" class="btn btn-secondary">Главная</a>-->
+    </form>
+</div>
+

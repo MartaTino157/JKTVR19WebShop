@@ -90,7 +90,7 @@ public class UserServlet extends HttpServlet {
                 residual = customer.getBalance() - product.getPrice();
                 if(residual <0){
                     request.setAttribute("info", "Недостаточно средств для покупки");
-                    request.getRequestDispatcher("/WEB-INF/makeDealForm.jsp").forward(request, response);
+                    request.getRequestDispatcher("/index.jsp").forward(request, response);
                     break;
                 }
                 customer.setBalance(residual);

@@ -1,24 +1,23 @@
-<%-- 
-    Document   : loginForm
-    Created on : 17.12.2020, 8:29:17
-    Author     : Alice
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Вход в систему</title>
-    </head>
-    <body>
-        <h1>Введите логин и пароль</h1>
-        <p>${info}</p>
-        <form action="login" method="POST">
-            Логин <input type="text" name="login" value=""><br>
-            Пароль <input type="password" name="password" value=""><br>
-            <input type="submit" value="Войти"<br>
+    <p class="text-primary">${info}</p>
+    <div class="card border-primary mb-3" style="max-width: 25rem;">
+        <div class="card-header">Заполните форму</div>
+        <div class="card-body">
+          <h4 class="card-title">Введите логин и пароль</h4>
+          <form action="login" method="POST">
+            <div class="form-group">
+                <label for="exampleInputText">Логин</label>
+                <input type="text" class="form-control" id="exampleInputText" name="login" value="" aria-describedby="emailHelp" placeholder="Enter login">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Пароль</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="password" value="" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary">Войти</button> 
+            <a href="registrationForm" class="btn btn-success">Зарегистрироваться</a>
         </form>
-        <a href="registrationForm">Зарегистрироваться</a>
-    </body>
-</html>
+        </div>
+    </div>
+
+
