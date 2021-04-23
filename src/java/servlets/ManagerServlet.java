@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import session.CustomerFacade;
 import session.ProductFacade;
+import session.UserRolesFacade;
 
 /**
  *
@@ -43,6 +44,8 @@ public class ManagerServlet extends HttpServlet {
     private ProductFacade productFacade;
     @EJB
     private CustomerFacade customerFacade;
+    @EJB
+    private UserRolesFacade userRolesFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -68,7 +71,8 @@ public class ManagerServlet extends HttpServlet {
             request.getRequestDispatcher("/loginForm").forward(request, response);
             return;
         }
-        if(!"admin".equals(authUser.getLogin())){
+        boolean isRole = userRolesFacade.isRole("MANAGER", authUser); 
+        if(!isRole){
             request.setAttribute("info", "У вас нет прав для доступа!");
             request.getRequestDispatcher("/loginForm").forward(request, response);
             return;
@@ -193,7 +197,7 @@ public class ManagerServlet extends HttpServlet {
                         ||"".equals(country) || country == null
                         ||"".equals(strPrice) || strPrice == null){
                     request.setAttribute("info", "Заполните все поля");
-                    request.getRequestDispatcher("/WEB-INF/addProductForm.jsp").forward(request, response);
+                    request.getRequestDispatcher("/WEB-INF/editProductForm.jsp").forward(request, response);
                     break;
                 } 
                 product = productFacade.find(Long.parseLong(productId));

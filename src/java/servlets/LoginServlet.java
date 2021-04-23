@@ -6,9 +6,10 @@
 package servlets;
 
 import entity.Customer;
+import entity.Role;
 import entity.User;
+import entity.UserRoles;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,13 +18,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import session.CustomerFacade;
+import session.RoleFacade;
 import session.UserFacade;
+import session.UserRolesFacade;
 
 /**
  *
  * @author Alice
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {
+@WebServlet(name = "LoginServlet", loadOnStartup = 1, urlPatterns = {
     "/loginForm",
     "/login",
     "/logout",
@@ -35,6 +38,36 @@ public class LoginServlet extends HttpServlet {
     private UserFacade userFacade;
     @EJB
     private CustomerFacade customerFacade;
+    @EJB
+    private RoleFacade roleFacade;
+    @EJB
+    private UserRolesFacade userRolesFacade;
+    @Override
+    public void init() throws ServletException {
+        super.init(); 
+        if(userFacade.findAll().size() > 0) return;
+        Customer customer = new Customer("Jack", "Nickolson", "45871254", 500.0);
+        customerFacade.create(customer);
+        User user = new User("admin", "123", customer);
+        userFacade.create(user);
+        
+        Role role = new Role("ADMIN");
+        roleFacade.create(role);
+        UserRoles userRoles = new UserRoles(role, user);
+        userRolesFacade.create(userRoles);
+        
+        role = new Role("MANAGER");
+        roleFacade.create(role);
+        userRoles = new UserRoles(role, user);
+        userRolesFacade.create(userRoles);
+        
+        role = new Role("CUSTOMER");
+        roleFacade.create(role);
+        userRoles = new UserRoles(role, user);
+        userRolesFacade.create(userRoles);
+    }
+    
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -119,8 +152,11 @@ public class LoginServlet extends HttpServlet {
                 double balance = Double.parseDouble(strBalance);
                 Customer customer = new Customer(firstname, lastname, phone, balance);
                 customerFacade.create(customer);
-                user = new User(login, password, "USER", customer);
+                user = new User(login, password, customer);
                 userFacade.create(user);
+                Role role = roleFacade.findByName("CUSTOMER");
+                UserRoles userRoles = new UserRoles(role, user);
+                userRolesFacade.create(userRoles);
                 request.setAttribute("info", "Пользователь \"" + customer.getFirstname() + " " + customer.getLastname() + "\" добавлен");
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
                 break;

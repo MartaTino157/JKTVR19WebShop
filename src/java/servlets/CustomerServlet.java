@@ -23,25 +23,26 @@ import javax.servlet.http.HttpSession;
 import session.CustomerFacade;
 import session.ProductFacade;
 import session.PurchaseFacade;
+import session.UserRolesFacade;
 
 /**
  *
  * @author Alice
  */
 @WebServlet(name = "UserServlet", urlPatterns = {
-
     "/listProducts",
-    
     "/makeDealForm",
     "/makeDeal"
 })
-public class UserServlet extends HttpServlet {
+public class CustomerServlet extends HttpServlet {
     @EJB
     private ProductFacade productFacade;
     @EJB
     private CustomerFacade customerFacade;
     @EJB
     private PurchaseFacade purchaseFacade;
+    @EJB
+    private UserRolesFacade userRolesFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -64,6 +65,12 @@ public class UserServlet extends HttpServlet {
         User authUser = (User) httpSession.getAttribute("user");
         if(authUser == null){
             request.setAttribute("info", "Авторизуйтесь, пожалуйста!");
+            request.getRequestDispatcher("/loginForm").forward(request, response);
+            return;
+        }
+        boolean isRole = userRolesFacade.isRole("CUSTOMER", authUser); 
+        if(!isRole){
+            request.setAttribute("info", "У вас нет прав для доступа!");
             request.getRequestDispatcher("/loginForm").forward(request, response);
             return;
         }
