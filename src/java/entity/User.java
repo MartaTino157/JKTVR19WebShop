@@ -26,15 +26,17 @@ public class User implements Serializable{
     @Column(unique = true)
     private String login;
     private String password;
+    private String salt;
     @OneToOne
     private Customer customer;
 
     public User() {
     }
 
-    public User(String login, String password, Customer customer) {
+    public User(String login, String password, String salt, Customer customer) {
         this.login = login;
         this.password = password;
+        this.salt = salt;
         this.customer = customer;
     }
 
@@ -62,6 +64,14 @@ public class User implements Serializable{
         this.password = password;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     public Customer getCustomer() {
         return customer;
     }
@@ -73,18 +83,25 @@ public class User implements Serializable{
     @Override
     public String toString() {
         return "User{" 
-                + "login=" + login 
+                + "id=" + id 
+                + ", login=" + login 
                 + ", password=" + password 
-                + ", customer=" + customer 
+                + ", salt=" + salt 
+                + ", customer=" + customer.getFirstname() 
+                + " " + customer.getLastname()
                 + '}';
     }
-
+    
+    
+    
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.login);
-        hash = 97 * hash + Objects.hashCode(this.password);
-        hash = 97 * hash + Objects.hashCode(this.customer);
+        int hash = 3;
+        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(this.login);
+        hash = 53 * hash + Objects.hashCode(this.password);
+        hash = 53 * hash + Objects.hashCode(this.salt);
+        hash = 53 * hash + Objects.hashCode(this.customer);
         return hash;
     }
 
@@ -104,6 +121,12 @@ public class User implements Serializable{
             return false;
         }
         if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        if (!Objects.equals(this.salt, other.salt)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         if (!Objects.equals(this.customer, other.customer)) {

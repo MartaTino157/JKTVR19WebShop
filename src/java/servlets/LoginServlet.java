@@ -21,6 +21,7 @@ import session.CustomerFacade;
 import session.RoleFacade;
 import session.UserFacade;
 import session.UserRolesFacade;
+import tools.EncryptPassword;
 
 /**
  *
@@ -42,13 +43,17 @@ public class LoginServlet extends HttpServlet {
     private RoleFacade roleFacade;
     @EJB
     private UserRolesFacade userRolesFacade;
+    EncryptPassword encryptPassword = new EncryptPassword();
+    
     @Override
     public void init() throws ServletException {
         super.init(); 
         if(userFacade.findAll().size() > 0) return;
         Customer customer = new Customer("Jack", "Nickolson", "45871254", 500.0);
         customerFacade.create(customer);
-        User user = new User("admin", "123", customer);
+        String salt = encryptPassword.createSalt();
+        String hashPassword = encryptPassword.createHash("12345", salt);
+        User user = new User("admin", hashPassword, salt, customer);
         userFacade.create(user);
         
         Role role = new Role("ADMIN");
@@ -96,6 +101,7 @@ public class LoginServlet extends HttpServlet {
                     request.getRequestDispatcher("/loginForm").forward(request, response);
                     break;
                 }
+                String hashPassword = encryptPassword.createHash(password, user.getSalt());
                 if(!password.equals(user.getPassword())){
                     request.setAttribute("info", "Неправильный логин или пароль");
                     request.getRequestDispatcher("/loginForm").forward(request, response);
@@ -152,7 +158,9 @@ public class LoginServlet extends HttpServlet {
                 double balance = Double.parseDouble(strBalance);
                 Customer customer = new Customer(firstname, lastname, phone, balance);
                 customerFacade.create(customer);
-                user = new User(login, password, customer);
+                String salt = encryptPassword.createSalt();
+                hashPassword = encryptPassword.createHash(password, salt);
+                user = new User(login, hashPassword, salt, customer);
                 userFacade.create(user);
                 Role role = roleFacade.findByName("CUSTOMER");
                 UserRoles userRoles = new UserRoles(role, user);
