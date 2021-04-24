@@ -20,21 +20,24 @@
           <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="registrationForm">Зарегистрироваться
+                <a class="nav-link" href="registrationForm">Регистрация
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="listCustomers">Список покупателей</a>
+                <a class="nav-link" href="listCustomers">Покупатели</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="addProductForm">Добавить товар</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="listProducts">Список товаров</a>
+                <a class="nav-link" href="listProducts">Товары</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="makeDealForm">Сделать покупку</a>
+                <a class="nav-link" href="makeDealForm">Купить</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="adminPanel">Админ-панель</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="loginForm">Войти</a>

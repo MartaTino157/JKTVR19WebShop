@@ -6,6 +6,7 @@
 package session;
 
 import entity.Role;
+import entity.User;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -38,5 +39,5 @@ public class RoleFacade extends AbstractFacade<Role> {
             return null;
         }
     }
-    
+
 }

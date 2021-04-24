@@ -3,7 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Alice/Documents/NetBeansProjects/JKTVR19WebShop/src/java/servlets/AdminServlet.java</file>
             <file>file:/C:/Users/Alice/Documents/NetBeansProjects/JKTVR19WebShop/src/java/servlets/ManagerServlet.java</file>
+            <file>file:/C:/Users/Alice/Documents/NetBeansProjects/JKTVR19WebShop/web/WEB-INF/jspf/header.jspf</file>
+            <file>file:/C:/Users/Alice/Documents/NetBeansProjects/JKTVR19WebShop/src/java/session/RoleFacade.java</file>
+            <file>file:/C:/Users/Alice/Documents/NetBeansProjects/JKTVR19WebShop/src/java/session/UserRolesFacade.java</file>
+            <file>file:/C:/Users/Alice/Documents/NetBeansProjects/JKTVR19WebShop/src/java/servlets/CustomerServlet.java</file>
+            <file>file:/C:/Users/Alice/Documents/NetBeansProjects/JKTVR19WebShop/web/WEB-INF/makeDealForm.jsp</file>
+            <file>file:/C:/Users/Alice/Documents/NetBeansProjects/JKTVR19WebShop/web/index.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -5,8 +5,11 @@
  */
 package session;
 
+import entity.Role;
 import entity.User;
 import entity.UserRoles;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,6 +23,9 @@ public class UserRolesFacade extends AbstractFacade<UserRoles> {
 
     @PersistenceContext(unitName = "JKTVR19WebShopPU")
     private EntityManager em;
+    
+    @EJB 
+    private RoleFacade roleFacade;
 
     @Override
     protected EntityManager getEntityManager() {
@@ -39,6 +45,57 @@ public class UserRolesFacade extends AbstractFacade<UserRoles> {
             return true;
         } catch (Exception e) {
             return false;
+        }
+    }
+
+     public String getTopRole(User user) {
+        try {
+            List<UserRoles> listUserRoles = em.createQuery("SELECT ur FROM UserRoles ur WHERE ur.user = :user")
+                    .setParameter("user", user)
+                    .getResultList();
+            for(UserRoles ur : listUserRoles){
+                if("ADMIN".equals(ur.getRole().getRoleName())){
+                    return "ADMIN";
+                }
+            }
+            for(UserRoles ur : listUserRoles){
+                if("MANAGER".equals(ur.getRole().getRoleName())){
+                    return "MANAGER";
+                }
+            }
+            for(UserRoles ur : listUserRoles){
+                if("CUSTOMER".equals(ur.getRole().getRoleName())){
+                    return "CUSTOMER";
+                }
+            }
+            return "-";
+        } catch (Exception e) {
+            return "-";
+        }
+    }
+
+    public void setNewRole(String roleName, User user) {
+        this.em.createQuery("DELETE FROM UserRoles ur WHERE ur.user = :user")
+                .setParameter("user", user)
+                .executeUpdate();
+        UserRoles userRoles;
+        if("ADMIN".equals(roleName)){
+            userRoles = new UserRoles(roleFacade.findByName("ADMIN"), user);
+            this.create(userRoles);
+            userRoles = new UserRoles(roleFacade.findByName("MANAGER"), user);
+            this.create(userRoles);
+            userRoles = new UserRoles(roleFacade.findByName("CUSTOMER"), user);
+            this.create(userRoles);
+        }
+        if("MANAGER".equals(roleName)){
+            userRoles = new UserRoles(roleFacade.findByName("MANAGER"), user);
+            this.create(userRoles);
+            userRoles = new UserRoles(roleFacade.findByName("CUSTOMER"), user);
+            this.create(userRoles);
+        }
+        if("CUSTOMER".equals(roleName)){
+            userRoles = new UserRoles(roleFacade.findByName("CUSTOMER"), user);
+            this.create(userRoles);
         }
     }
    

@@ -27,7 +27,6 @@ import session.UserRolesFacade;
  */
 @WebServlet(name = "MenegerServlet", urlPatterns = {
     
-    "/listCustomers",
     "/editCustomerForm",
     "/editCustomer",
     "/addMoneyForm",
@@ -79,11 +78,6 @@ public class ManagerServlet extends HttpServlet {
         }
         String path = request.getServletPath();
         switch (path) {
-            case "/listCustomers":
-                List<Customer> listCustomers = customerFacade.findAll();
-                request.setAttribute("listCustomers", listCustomers);
-                request.getRequestDispatcher("/WEB-INF/listCustomers.jsp").forward(request, response);
-                break;
             case "/editCustomerForm":
                 String customerId = request.getParameter("customerId");
                 Customer customer = customerFacade.find(Long.parseLong(customerId));
