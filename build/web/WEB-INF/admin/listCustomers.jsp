@@ -11,8 +11,6 @@
                 <th scope="col">Фамилия</th>
                 <th scope="col">Телефон</th>
                 <th scope="col">Баланс</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
             </tr>
         </thead>
         <c:forEach var="customer" items="${listCustomers}" varStatus="status">
@@ -22,12 +20,6 @@
                     <td>${customer.lastname}</td>
                     <td>${customer.phone}</td>
                     <td>${customer.balance}€</td>
-                    <td>
-                        <a href="editCustomerForm?customerId=${customer.id}">Изменить</a>
-                    </td>
-                    <td>
-                        <a href="addMoneyForm?customerId=${customer.id}">Пополнить счет</a>
-                    </td>
                 </tr>
             </tbody>
         </c:forEach>

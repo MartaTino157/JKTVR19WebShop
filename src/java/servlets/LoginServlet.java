@@ -119,7 +119,7 @@ public class LoginServlet extends HttpServlet {
                 HttpSession httpSession = request.getSession(true);
                 httpSession.setAttribute("user", user);
                 request.setAttribute("info", "Вы вошли как " + user.getCustomer().getFirstname() + " " + user.getCustomer().getLastname());
-                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("index")).forward(request, response);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("profile")).forward(request, response);
                 break;
             case "/logout":
                 httpSession = request.getSession(false);

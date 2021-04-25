@@ -19,14 +19,8 @@
             <label for="phone">Номер телефона</label>
             <input type="text" class="form-control" id="phone" name="phone" value="${customer.phone}">
           </div>
-          <div class="form-group row">
-              <label class="col-sm-6 col-form-label">Текущий баланс</label>
-              <div class="col-sm-6">
-                <input type="text" readonly class="form-control-plaintext" value="${customer.balance}€">
-              </div>
-          </div> 
-          <button type="submit" name="submit" class="btn btn-success">Править</button> 
-        <!--<a href="index.jsp" type="button" class="btn btn-secondary">Главная</a>-->
+          <button type="submit" name="submit" class="btn btn-success">Сохранить</button> 
+            <a href="profile" type="button" class="btn btn-secondary">Назад</a>
     </form>
 </div>
 

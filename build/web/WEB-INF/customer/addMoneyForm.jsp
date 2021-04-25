@@ -15,12 +15,6 @@
               </div>
           </div>
           <div class="form-group row">
-              <label class="col-sm-6 col-form-label">Номер телефона</label>
-              <div class="col-sm-6">
-                <input type="text" readonly class="form-control-plaintext" value="${customer.phone}">
-              </div>
-          </div>
-          <div class="form-group row">
               <label class="col-sm-6 col-form-label">Текущий баланс</label>
               <div class="col-sm-6">
                 <input type="text" readonly class="form-control-plaintext" value="${customer.balance}€">
@@ -31,7 +25,7 @@
             <input type="text" class="form-control" name="money" value="${strMoney}">
           </div>
           <button type="submit" name="submit" class="btn btn-success">Пополнить счет</button>
-          <a href="listCustomers" type="button" class="btn btn-secondary">Список покупателей</a>
+          <a href="profile" type="button" class="btn btn-secondary">Назад</a>
         </form>
     </div>
 </div>

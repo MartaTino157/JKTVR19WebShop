@@ -27,11 +27,6 @@ import session.UserRolesFacade;
  */
 @WebServlet(name = "MenegerServlet", urlPatterns = {
     
-    "/editCustomerForm",
-    "/editCustomer",
-    "/addMoneyForm",
-    "/addMoney",
-    
     "/addProductForm",
     "/createProduct",
     "/editProductForm",
@@ -78,61 +73,6 @@ public class ManagerServlet extends HttpServlet {
         }
         String path = request.getServletPath();
         switch (path) {
-            case "/editCustomerForm":
-                String customerId = request.getParameter("customerId");
-                Customer customer = customerFacade.find(Long.parseLong(customerId));
-                request.setAttribute("customer", customer);
-                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("editCustomer")).forward(request, response);
-                break;
-            case "/editCustomer":
-                customerId = request.getParameter("customerId");
-                String firstname = request.getParameter("firstname");
-                String lastname = request.getParameter("lastname");
-                String phone = request.getParameter("phone");
-                if("".equals(firstname) || firstname == null
-                        ||"".equals(lastname) || lastname == null
-                        ||"".equals(phone) || phone == null){
-                    request.setAttribute("info", "Заполните все поля");
-                    request.getRequestDispatcher("/editCustomerForm").forward(request, response);
-                    break;
-                } 
-                customer = customerFacade.find(Long.parseLong(customerId));
-                customer.setFirstname(firstname);
-                customer.setLastname(lastname);
-                customer.setPhone(phone);
-                customerFacade.edit(customer);
-                request.setAttribute("customerId", customerId);
-                request.setAttribute("info", "Данные покупателя \"" + customer.getFirstname() + " " + customer.getLastname() + "\" изменены");
-                request.getRequestDispatcher("/listCustomers").forward(request, response);
-                break;
-            case "/addMoneyForm":
-                customerId = request.getParameter("customerId");
-                customer = customerFacade.find(Long.parseLong(customerId));
-                request.setAttribute("customer", customer);
-                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("addMoney")).forward(request, response);
-                break;
-            case "/addMoney":
-                customerId = request.getParameter("customerId");
-                String strMoney = request.getParameter("money");
-                double index = strMoney.indexOf(",");
-                if(index >= 0){
-                    strMoney = strMoney.replace(",", ".");
-                }
-                if("".equals(strMoney) || strMoney == null){
-                    request.setAttribute("money", strMoney);
-                    request.setAttribute("info", "Вы нисколько не ввели");
-                    request.getRequestDispatcher("/addMoneyForm").forward(request, response);
-                    break;
-                }
-                customer = customerFacade.find(Long.parseLong(customerId));
-                double money = Double.parseDouble(strMoney);
-                double balance = money + customer.getBalance();
-                customer.setBalance(balance);
-                customerFacade.edit(customer);
-                request.setAttribute("customerId", customerId);
-                request.setAttribute("info", "Счет клиента \"" + customer.getFirstname() + " " + customer.getLastname() + "\" пополнен");
-                request.getRequestDispatcher("/listCustomers").forward(request, response);
-                break;
             case "/addProductForm":
                 request.getRequestDispatcher(LoginServlet.pathToJsp.getString("addProduct")).forward(request, response);
                 break;
@@ -146,7 +86,7 @@ public class ManagerServlet extends HttpServlet {
                     request.getRequestDispatcher("/addProductForm").forward(request, response);
                     break;
                 }
-                index = strPrice.indexOf(",");
+                double index = strPrice.indexOf(",");
                 if(index >= 0){
                     strPrice = strPrice.replace(",", ".");
                 }

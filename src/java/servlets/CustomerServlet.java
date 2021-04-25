@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import session.CustomerFacade;
 import session.ProductFacade;
 import session.PurchaseFacade;
+import session.UserFacade;
 import session.UserRolesFacade;
 
 /**
@@ -30,6 +31,11 @@ import session.UserRolesFacade;
  * @author Alice
  */
 @WebServlet(name = "UserServlet", urlPatterns = {
+    "/profile",
+    "/editCustomerForm",
+    "/editCustomer",
+    "/addMoneyForm",
+    "/addMoney",
     "/makeDealForm",
     "/makeDeal"
 })
@@ -42,6 +48,8 @@ public class CustomerServlet extends HttpServlet {
     private PurchaseFacade purchaseFacade;
     @EJB
     private UserRolesFacade userRolesFacade;
+    @EJB
+    private UserFacade userFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -75,23 +83,83 @@ public class CustomerServlet extends HttpServlet {
         }
         String path = request.getServletPath();
         switch (path) {
+            case "/profile":
+                User user = userFacade.find(authUser.getId());
+                request.setAttribute("user", user);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("profile")).forward(request, response);
+                break;
+            case "/editCustomerForm":
+                String customerId = request.getParameter("customerId");
+                Customer customer = customerFacade.find(Long.parseLong(customerId));
+                request.setAttribute("customer", customer);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("editCustomer")).forward(request, response);
+                break;
+            case "/editCustomer":
+                customerId = request.getParameter("customerId");
+                String firstname = request.getParameter("firstname");
+                String lastname = request.getParameter("lastname");
+                String phone = request.getParameter("phone");
+                if("".equals(firstname) || firstname == null
+                        ||"".equals(lastname) || lastname == null
+                        ||"".equals(phone) || phone == null){
+                    request.setAttribute("info", "Заполните все поля");
+                    request.getRequestDispatcher("/editCustomerForm").forward(request, response);
+                    break;
+                } 
+                customer = customerFacade.find(Long.parseLong(customerId));
+                customer.setFirstname(firstname);
+                customer.setLastname(lastname);
+                customer.setPhone(phone);
+                customerFacade.edit(customer);
+                request.setAttribute("customerId", customerId);
+                request.setAttribute("info", "Данные покупателя изменены");
+                request.getRequestDispatcher("/profile").forward(request, response);
+                break;
+            case "/addMoneyForm":
+                customerId = request.getParameter("customerId");
+                customer = customerFacade.find(Long.parseLong(customerId));
+                request.setAttribute("customer", customer);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("addMoney")).forward(request, response);
+                break;
+            case "/addMoney":
+                customerId = request.getParameter("customerId");
+                String strMoney = request.getParameter("money");
+                double index = strMoney.indexOf(",");
+                if(index >= 0){
+                    strMoney = strMoney.replace(",", ".");
+                }
+                if("".equals(strMoney) || strMoney == null){
+                    request.setAttribute("money", strMoney);
+                    request.setAttribute("info", "Вы нисколько не ввели");
+                    request.getRequestDispatcher("/addMoneyForm").forward(request, response);
+                    break;
+                }
+                customer = customerFacade.find(Long.parseLong(customerId));
+                double money = Double.parseDouble(strMoney);
+                double balance = money + customer.getBalance();
+                customer.setBalance(balance);
+                customerFacade.edit(customer);
+                request.setAttribute("customerId", customerId);
+                request.setAttribute("info", "Счет пополнен");
+                request.getRequestDispatcher("/profile").forward(request, response);
+                break;
             case "/makeDealForm":
                 List<Product> listProducts = productFacade.findAll();
                 request.setAttribute("listProducts", listProducts);
-                Customer customer = customerFacade.find(authUser.getCustomer().getId());
+                customer = customerFacade.find(authUser.getCustomer().getId());
                 request.setAttribute("customer", customer);
                 request.getRequestDispatcher(LoginServlet.pathToJsp.getString("makeDeal")).forward(request, response);
                 break;
             case "/makeDeal":
                 String productId = request.getParameter("productId");
                 Product product = productFacade.find(Long.parseLong(productId));
-                String customerId = request.getParameter("customerId");
+                customerId = request.getParameter("customerId");
                 customer = customerFacade.find(Long.parseLong(customerId));
                 double residual;
                 residual = customer.getBalance() - product.getPrice();
                 if(residual <0){
                     request.setAttribute("info", "Недостаточно средств для покупки");
-                    request.getRequestDispatcher(LoginServlet.pathToJsp.getString("index")).forward(request, response);
+                    request.getRequestDispatcher("/profile").forward(request, response);
                     break;
                 }
                 customer.setBalance(residual);
