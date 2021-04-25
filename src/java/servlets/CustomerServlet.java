@@ -30,7 +30,6 @@ import session.UserRolesFacade;
  * @author Alice
  */
 @WebServlet(name = "UserServlet", urlPatterns = {
-    "/listProducts",
     "/makeDealForm",
     "/makeDeal"
 })

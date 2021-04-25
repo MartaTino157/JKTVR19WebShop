@@ -37,7 +37,7 @@
                         <label for="password">Пароль</label>
                         <input type="password" class="form-control" id="password" name="password" value="${password}" placeholder="Password">
                     </div>
-                    <button type="submit" name="submit" class="btn btn-primary">Добавить покупателя</button> 
+                    <button type="submit" name="submit" class="btn btn-primary">Зарегистрироваться</button> 
                     <a href="index.jsp" type="button" class="btn btn-secondary">Главная</a>
                 </div>
             </div>

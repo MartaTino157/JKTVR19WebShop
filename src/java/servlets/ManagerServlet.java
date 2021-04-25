@@ -164,7 +164,7 @@ public class ManagerServlet extends HttpServlet {
                 product = new Product(name, country, price);
                 productFacade.create(product);
                 request.setAttribute("info", "Данные товара \"" + product.getName() + "\" получены");
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("index")).forward(request, response);
                 break;
             case "/editProductForm":
                 String productId = request.getParameter("productId");

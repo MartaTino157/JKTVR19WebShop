@@ -36,7 +36,8 @@ import tools.EncryptPassword;
     "/login",
     "/logout",
     "/registrationForm",
-    "/registration"
+    "/registration",
+    "/listProducts"
 })
 public class LoginServlet extends HttpServlet {
     @EJB
@@ -110,7 +111,7 @@ public class LoginServlet extends HttpServlet {
                     break;
                 }
                 String hashPassword = encryptPassword.createHash(password, user.getSalt());
-                if(!password.equals(user.getPassword())){
+                if(!hashPassword.equals(user.getPassword())){
                     request.setAttribute("info", "Неправильный логин или пароль");
                     request.getRequestDispatcher("/loginForm").forward(request, response);
                     break;                    
@@ -174,7 +175,7 @@ public class LoginServlet extends HttpServlet {
                 UserRoles userRoles = new UserRoles(role, user);
                 userRolesFacade.create(userRoles);
                 request.setAttribute("info", "Пользователь \"" + customer.getFirstname() + " " + customer.getLastname() + "\" добавлен");
-                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("index")).forward(request, response);
+                request.getRequestDispatcher("/loginForm").forward(request, response);
                 break;
             case "/listProducts":
                 List<Product> listProducts = productFacade.findAll();

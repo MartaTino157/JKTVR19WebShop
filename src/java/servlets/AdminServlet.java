@@ -96,7 +96,7 @@ public class AdminServlet extends HttpServlet {
                 }
                 request.setAttribute("usersMap", usersMap);
                 request.setAttribute("listRoles", roleFacade.findAll());
-                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("adminPanel")).forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/admin/adminPanel.jsp").forward(request, response);
                 break;
             case "/addNewRole":
                 String userId = request.getParameter("userId");
