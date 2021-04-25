@@ -11,6 +11,7 @@
         <title>JKTVR19WebShop</title>
     </head>
     <body>
+    <div class="container">
     <%--<c:import url="/WEB-INF/menu/menu.jsp"></c:import>--%>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">   
@@ -21,31 +22,31 @@
 
       <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="registrationForm">Регистрация
+          <li class="nav-item">
+            <a class="nav-link <c:if test="${active=='registration'}">active</c:if>" href="registrationForm">Регистрация
               <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="profile">Личный кабинет</a>
+            <a class="nav-link <c:if test="${active=='profile'}">active</c:if>" href="profile">Личный кабинет</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="listCustomers">Покупатели</a>
+            <a class="nav-link <c:if test="${active=='listCustomers'}">active</c:if>" href="listCustomers">Покупатели</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="addProductForm">Добавить товар</a>
+            <a class="nav-link <c:if test="${active=='addProductForm'}">active</c:if>" href="addProductForm">Добавить товар</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="listProducts">Товары</a>
+            <a class="nav-link <c:if test="${active=='listProducts'}">active</c:if>" href="listProducts">Товары</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="makeDealForm">Купить</a>
+            <a class="nav-link <c:if test="${active=='makeDealForm'}">active</c:if>" href="makeDealForm">Купить</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="adminPanel">Админ-панель</a>
+            <a class="nav-link <c:if test="${active=='adminPanel'}">active</c:if>" href="adminPanel">Админ-панель</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="loginForm">Войти</a>
+            <a class="nav-link <c:if test="${active=='loginForm'}">active</c:if>" href="loginForm">Войти</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="logout">Выйти</a>
@@ -68,4 +69,3 @@
       </div>
     </div>
 </nav>
-        <div class="container">

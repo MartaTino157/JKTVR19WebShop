@@ -86,6 +86,7 @@ public class CustomerServlet extends HttpServlet {
             case "/profile":
                 User user = userFacade.find(authUser.getId());
                 request.setAttribute("user", user);
+                request.setAttribute("active", "profile");
                 request.getRequestDispatcher(LoginServlet.pathToJsp.getString("profile")).forward(request, response);
                 break;
             case "/editCustomerForm":
@@ -148,6 +149,7 @@ public class CustomerServlet extends HttpServlet {
                 request.setAttribute("listProducts", listProducts);
                 customer = customerFacade.find(authUser.getCustomer().getId());
                 request.setAttribute("customer", customer);
+                request.setAttribute("active", "makeDealForm");
                 request.getRequestDispatcher(LoginServlet.pathToJsp.getString("makeDeal")).forward(request, response);
                 break;
             case "/makeDeal":

@@ -74,6 +74,7 @@ public class ManagerServlet extends HttpServlet {
         String path = request.getServletPath();
         switch (path) {
             case "/addProductForm":
+                request.setAttribute("active", "addProductForm");
                 request.getRequestDispatcher(LoginServlet.pathToJsp.getString("addProduct")).forward(request, response);
                 break;
             case "/createProduct": 

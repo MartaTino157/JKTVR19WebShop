@@ -99,6 +99,7 @@ public class LoginServlet extends HttpServlet {
         String path = request.getServletPath();
         switch (path) {
             case "/loginForm":
+                request.setAttribute("active", "loginForm");
                 request.getRequestDispatcher(LoginServlet.pathToJsp.getString("login")).forward(request, response);
                 break;
             case "/login":
@@ -130,6 +131,7 @@ public class LoginServlet extends HttpServlet {
                 request.getRequestDispatcher(LoginServlet.pathToJsp.getString("index")).forward(request, response);
                 break;
             case "/registrationForm":
+                request.setAttribute("active", "registration");
                 httpSession = request.getSession(false);
                 User authUser = (User) httpSession.getAttribute("user");
                 if(authUser != null){
@@ -180,6 +182,7 @@ public class LoginServlet extends HttpServlet {
             case "/listProducts":
                 List<Product> listProducts = productFacade.findAll();
                 request.setAttribute("listProducts", listProducts);
+                request.setAttribute("active", "listProducts");
                 request.getRequestDispatcher(LoginServlet.pathToJsp.getString("listProducts")).forward(request, response);
                 break;
             
