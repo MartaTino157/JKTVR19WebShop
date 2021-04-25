@@ -86,7 +86,7 @@ public class AdminServlet extends HttpServlet {
             case "/listCustomers":
                 List<Customer> listCustomers = customerFacade.findAll();
                 request.setAttribute("listCustomers", listCustomers);
-                request.getRequestDispatcher("/WEB-INF/listCustomers.jsp").forward(request, response);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("listCustomers")).forward(request, response);
                 break;
             case "/adminPanel":
                 Map<User,String> usersMap = new HashMap<>();
@@ -96,7 +96,7 @@ public class AdminServlet extends HttpServlet {
                 }
                 request.setAttribute("usersMap", usersMap);
                 request.setAttribute("listRoles", roleFacade.findAll());
-                request.getRequestDispatcher("WEB-INF/adminPanel.jsp").forward(request, response);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("adminPanel")).forward(request, response);
                 break;
             case "/addNewRole":
                 String userId = request.getParameter("userId");

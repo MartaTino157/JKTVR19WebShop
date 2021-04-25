@@ -82,7 +82,7 @@ public class ManagerServlet extends HttpServlet {
                 String customerId = request.getParameter("customerId");
                 Customer customer = customerFacade.find(Long.parseLong(customerId));
                 request.setAttribute("customer", customer);
-                request.getRequestDispatcher("/WEB-INF/editCustomerForm.jsp").forward(request, response);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("editCustomer")).forward(request, response);
                 break;
             case "/editCustomer":
                 customerId = request.getParameter("customerId");
@@ -93,7 +93,7 @@ public class ManagerServlet extends HttpServlet {
                         ||"".equals(lastname) || lastname == null
                         ||"".equals(phone) || phone == null){
                     request.setAttribute("info", "Заполните все поля");
-                    request.getRequestDispatcher("/WEB-INF/editCustomerForm.jsp").forward(request, response);
+                    request.getRequestDispatcher("/editCustomerForm").forward(request, response);
                     break;
                 } 
                 customer = customerFacade.find(Long.parseLong(customerId));
@@ -109,7 +109,7 @@ public class ManagerServlet extends HttpServlet {
                 customerId = request.getParameter("customerId");
                 customer = customerFacade.find(Long.parseLong(customerId));
                 request.setAttribute("customer", customer);
-                request.getRequestDispatcher("/WEB-INF/addMoneyForm.jsp").forward(request, response);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("addMoney")).forward(request, response);
                 break;
             case "/addMoney":
                 customerId = request.getParameter("customerId");
@@ -134,7 +134,7 @@ public class ManagerServlet extends HttpServlet {
                 request.getRequestDispatcher("/listCustomers").forward(request, response);
                 break;
             case "/addProductForm":
-                request.getRequestDispatcher("/WEB-INF/addProductForm.jsp").forward(request, response);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("addProduct")).forward(request, response);
                 break;
             case "/createProduct": 
                 String name = request.getParameter("name");
@@ -157,7 +157,7 @@ public class ManagerServlet extends HttpServlet {
                     request.setAttribute("country", country);
                     request.setAttribute("price", strPrice);
                     request.setAttribute("info", "Заполните все поля");
-                    request.getRequestDispatcher("/WEB-INF/addProductForm.jsp").forward(request, response);
+                    request.getRequestDispatcher("/addProductForm").forward(request, response);
                     break;
                 } 
                 double price = Double.parseDouble(strPrice);
@@ -170,7 +170,7 @@ public class ManagerServlet extends HttpServlet {
                 String productId = request.getParameter("productId");
                 product = productFacade.find(Long.parseLong(productId));
                 request.setAttribute("product", product);
-                request.getRequestDispatcher("/WEB-INF/editProductForm.jsp").forward(request, response);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("editProduct")).forward(request, response);
                 break;
             case "/editProduct":
                 productId = request.getParameter("productId");
@@ -191,7 +191,7 @@ public class ManagerServlet extends HttpServlet {
                         ||"".equals(country) || country == null
                         ||"".equals(strPrice) || strPrice == null){
                     request.setAttribute("info", "Заполните все поля");
-                    request.getRequestDispatcher("/WEB-INF/editProductForm.jsp").forward(request, response);
+                    request.getRequestDispatcher("/editProductForm").forward(request, response);
                     break;
                 } 
                 product = productFacade.find(Long.parseLong(productId));

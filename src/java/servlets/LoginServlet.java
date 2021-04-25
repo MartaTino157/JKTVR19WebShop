@@ -6,10 +6,13 @@
 package servlets;
 
 import entity.Customer;
+import entity.Product;
 import entity.Role;
 import entity.User;
 import entity.UserRoles;
 import java.io.IOException;
+import java.util.List;
+import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import session.CustomerFacade;
+import session.ProductFacade;
 import session.RoleFacade;
 import session.UserFacade;
 import session.UserRolesFacade;
@@ -43,7 +47,11 @@ public class LoginServlet extends HttpServlet {
     private RoleFacade roleFacade;
     @EJB
     private UserRolesFacade userRolesFacade;
+    @EJB
+    private ProductFacade productFacade;
     EncryptPassword encryptPassword = new EncryptPassword();
+    
+    public static final ResourceBundle pathToJsp = ResourceBundle.getBundle("property.pathToJsp");
     
     @Override
     public void init() throws ServletException {
@@ -90,7 +98,7 @@ public class LoginServlet extends HttpServlet {
         String path = request.getServletPath();
         switch (path) {
             case "/loginForm":
-                request.getRequestDispatcher("/loginForm.jsp").forward(request, response);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("login")).forward(request, response);
                 break;
             case "/login":
                 String login = request.getParameter("login");
@@ -110,7 +118,7 @@ public class LoginServlet extends HttpServlet {
                 HttpSession httpSession = request.getSession(true);
                 httpSession.setAttribute("user", user);
                 request.setAttribute("info", "Вы вошли как " + user.getCustomer().getFirstname() + " " + user.getCustomer().getLastname());
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("index")).forward(request, response);
                 break;
             case "/logout":
                 httpSession = request.getSession(false);
@@ -118,16 +126,16 @@ public class LoginServlet extends HttpServlet {
                     httpSession.invalidate();
                     request.setAttribute("info", "Вы вышли!");
                 }
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("index")).forward(request, response);
                 break;
             case "/registrationForm":
                 httpSession = request.getSession(false);
                 User authUser = (User) httpSession.getAttribute("user");
                 if(authUser != null){
                     request.setAttribute("info", "Пожалуйста, выйдите из текущего аккаунта");
-                    request.getRequestDispatcher("/index.jsp").forward(request, response);
+                    request.getRequestDispatcher(LoginServlet.pathToJsp.getString("index")).forward(request, response);
                 }
-                request.getRequestDispatcher("/WEB-INF/registrationForm.jsp").forward(request, response);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("registration")).forward(request, response);
                 break;
             case "/registration":
                 String firstname = request.getParameter("firstname");
@@ -152,7 +160,7 @@ public class LoginServlet extends HttpServlet {
                     request.setAttribute("balance", strBalance);
                     request.setAttribute("login", login);
                     request.setAttribute("info", "Заполните все поля");
-                    request.getRequestDispatcher("/WEB-INF/registrationForm.jsp").forward(request, response);
+                    request.getRequestDispatcher("/registrationForm").forward(request, response);
                     break;
                 } 
                 double balance = Double.parseDouble(strBalance);
@@ -166,7 +174,12 @@ public class LoginServlet extends HttpServlet {
                 UserRoles userRoles = new UserRoles(role, user);
                 userRolesFacade.create(userRoles);
                 request.setAttribute("info", "Пользователь \"" + customer.getFirstname() + " " + customer.getLastname() + "\" добавлен");
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("index")).forward(request, response);
+                break;
+            case "/listProducts":
+                List<Product> listProducts = productFacade.findAll();
+                request.setAttribute("listProducts", listProducts);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("listProducts")).forward(request, response);
                 break;
             
         }

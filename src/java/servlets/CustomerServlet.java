@@ -76,17 +76,12 @@ public class CustomerServlet extends HttpServlet {
         }
         String path = request.getServletPath();
         switch (path) {
-            case "/listProducts":
-                List<Product> listProducts = productFacade.findAll();
-                request.setAttribute("listProducts", listProducts);
-                request.getRequestDispatcher("/WEB-INF/listProducts.jsp").forward(request, response);
-                break;
             case "/makeDealForm":
-                listProducts = productFacade.findAll();
+                List<Product> listProducts = productFacade.findAll();
                 request.setAttribute("listProducts", listProducts);
                 Customer customer = customerFacade.find(authUser.getCustomer().getId());
                 request.setAttribute("customer", customer);
-                request.getRequestDispatcher("/WEB-INF/makeDealForm.jsp").forward(request, response);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("makeDeal")).forward(request, response);
                 break;
             case "/makeDeal":
                 String productId = request.getParameter("productId");
@@ -97,7 +92,7 @@ public class CustomerServlet extends HttpServlet {
                 residual = customer.getBalance() - product.getPrice();
                 if(residual <0){
                     request.setAttribute("info", "Недостаточно средств для покупки");
-                    request.getRequestDispatcher("/index.jsp").forward(request, response);
+                    request.getRequestDispatcher(LoginServlet.pathToJsp.getString("index")).forward(request, response);
                     break;
                 }
                 customer.setBalance(residual);
@@ -106,7 +101,7 @@ public class CustomerServlet extends HttpServlet {
                 purchaseFacade.create(purchase);
                 request.setAttribute("customerId", customerId);
                 request.setAttribute("info", "Товар \""+product.getName() + "\" приобретен покупателем " + customer.getFirstname() + " " + customer.getLastname());
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                request.getRequestDispatcher(LoginServlet.pathToJsp.getString("index")).forward(request, response);
                 break;
             default:
         }
