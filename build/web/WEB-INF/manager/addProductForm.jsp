@@ -17,6 +17,10 @@
                 <label for="productPrice">Стоимость</label>
                 <input type="text" class="form-control" id="productPrice" name="price" value="${strPrice}" placeholder="Enter price">
             </div>
+<!--        <div class="form-group">
+                <label for="productImage">Картинка</label><br>
+                <input type="file" id="productImage" name="image" value="">
+            </div>-->
             <button type="submit" name="submit" class="btn btn-primary">Добавить товар</button> 
             <a href="index.jsp" type="button" class="btn btn-secondary">Главная</a>
         </form>

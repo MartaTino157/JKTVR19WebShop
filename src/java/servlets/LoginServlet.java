@@ -166,6 +166,9 @@ public class LoginServlet extends HttpServlet {
                     request.getRequestDispatcher("/registrationForm").forward(request, response);
                     break;
                 } 
+                if (!(userFacade.findByLogin(login) == null)) { 
+                    request.setAttribute("info", "Аккаунт с таким логином уже существует."); 
+                }
                 double balance = Double.parseDouble(strBalance);
                 Customer customer = new Customer(firstname, lastname, phone, balance);
                 customerFacade.create(customer);

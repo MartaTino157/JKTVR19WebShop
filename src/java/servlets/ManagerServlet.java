@@ -5,19 +5,24 @@
  */
 package servlets;
 
-import entity.Customer;
 import entity.Product;
 import entity.User;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import session.CustomerFacade;
+import javax.servlet.http.Part;
 import session.ProductFacade;
 import session.UserRolesFacade;
 
@@ -33,11 +38,10 @@ import session.UserRolesFacade;
     "/editProduct"
 
 })
+//@MultipartConfig()
 public class ManagerServlet extends HttpServlet {
     @EJB
     private ProductFacade productFacade;
-    @EJB
-    private CustomerFacade customerFacade;
     @EJB
     private UserRolesFacade userRolesFacade;
     /**
@@ -71,6 +75,20 @@ public class ManagerServlet extends HttpServlet {
             request.getRequestDispatcher("/loginForm").forward(request, response);
             return;
         }
+//        String imagesFolder = "C:\\JKTVR19WebShop/Images";
+//        List<Part> fileParts;
+//        fileParts = request
+//                .getParts()
+//                .stream()
+//                .filter(part -> "file".equals(part.getName()))
+//                .collect(Collectors.toList());
+//        for(Part filePart : fileParts){
+//            String item = imagesFolder+File.separator+getFileName(filePart);
+//            File file = new File(item);
+//            try(InputStream fileContent = filePart.getInputStream()){
+//                Files.copy(fileContent, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//            }
+//        }
         String path = request.getServletPath();
         switch (path) {
             case "/addProductForm":
@@ -147,6 +165,18 @@ public class ManagerServlet extends HttpServlet {
             default:
         }
     }
+//    private String getFileName(Part part) {
+//        final String partHeader = part.getHeader("content-disposition");
+//        for (String content : part.getHeader("content-disposition").split(";")){
+//            if(content.trim().startsWith("filename")){
+//                return content
+//                        .substring(content.indexOf('=')+1)
+//                        .trim()
+//                        .replace("\"", "");
+//            }
+//        }
+//        return null;
+//    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
